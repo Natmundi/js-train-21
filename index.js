@@ -289,25 +289,25 @@ class Performance {
   #band;
   #location;
   #date;
-  coanstructor(band, location, date) {
-    this.#band = band;
+  constructor(Band, location, Date) {
+    this.#band = Band;
     this.#location = location;
-    this.#date = date;
+    this.#date = Date;
   }
-  get band() {
+  get Band() {
     return this.#band;
   }
   get location() {
     return this.#location;
   }
-  get date() {
+  get Date() {
     return this.#date;
   }
   info() {
     console.log(
-      `Гурт ${this.#band} виступить в ${
+      `Гурт ${this.#band.name} виступить в ${
         this.#location
-      } ${this.#date.toLocalDateString()}`
+      } ${this.#date.toLocaleDateString()}`
     );
   }
 }
@@ -330,8 +330,8 @@ class Concert extends Performance {
   // Створюємо setter для #ticketPrice, що дозволяє змінити приватну властивість #ticketPrice
   // Визначаємо метод info(), що виводить рядок в консоль `Гурт ${super.band.name} виступить в ${super.location} ${super.date.toLocaleDateString()}, ціна квитка ${this.#ticketPrice}`
   #ticketPrice;
-  constructor(band, location, date, ticketPrice) {
-    super(band, location, date);
+  constructor(Band, location, Date, ticketPrice) {
+    super(Band, location, Date);
     this.#ticketPrice = ticketPrice;
   }
   get ticketPrice() {
@@ -342,9 +342,9 @@ class Concert extends Performance {
   }
   info() {
     console.log(
-      `Гурт ${super.band.name} виступить в ${
+      `Гурт ${super.Band.name} виступить в ${
         super.location
-      } ${super.date.toLocaleDateString()}, ціна квитка ${this.#ticketPrice}`
+      } ${super.Date.toLocaleDateString()}, ціна квитка ${this.#ticketPrice}`
     );
   }
 }
@@ -508,7 +508,7 @@ const songwriter = new SongWriter(["Yesterday", "Hey Jude", "Let It Be"]);
  * | location    | "Liverpool"                          |
  * | date        | new Date('2023-08-01')               |
  */
-const performance = new Performance(band, "Liverpool", "2023-08-01");
+const performance = new Performance(band, "Liverpool", new Date(`2023-08-01`));
 
 // використання Object.assign() для успадкування властивостей songwriter для LeadSinger.prototype
 Object.assign(songwriter, LeadSinger.prototype);
@@ -523,13 +523,7 @@ Object.assign(songwriter, LeadSinger.prototype);
  * | date        | new Date("1994-07-06")|
  * | ticketPrice | 100              |
  */
-const concert = new Concert(
-  band,
-  "BBC studios",
-  "BBC studios",
-  new Date("1994-07-06"),
-  100
-);
+const concert = new Concert(band, "BBC studios", new Date("1994-07-06"), 100);
 
 /*
  * Створення leadsinger екземпляра класу LeadSinger
@@ -551,8 +545,8 @@ musician.play();
 guitarist.play();
 bassist.play();
 band.playMusic();
-// performance.info();
-// concert.info();
-// vocalist.info();
-// songwriter.info();
-// leadsinger.info();
+performance.info();
+concert.info();
+vocalist.info();
+songwriter.info();
+leadsinger.info();
